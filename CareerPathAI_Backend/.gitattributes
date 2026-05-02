@@ -1,0 +1,2 @@
+*.pkl filter=lfs diff=lfs merge=lfs -text
+C:/Users/Zeeshan[[:space:]]Ali/Desktop/CareerPathAI/CareerPathAI_Backend/app/artifacts/model.pkl filter=lfs diff=lfs merge=lfs -text

@@ -1,4 +1,9 @@
-# future config (API keys, DB, etc.)
+import os
+from dotenv import load_dotenv
 
-APP_NAME = "CareerPathAI"
-VERSION = "1.0"
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
+if not OPENAI_API_KEY:
+    raise ValueError("OpenAI API Key not found in .env")
