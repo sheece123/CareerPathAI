@@ -1,0 +1,68 @@
+# =========================
+# Python cache files
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =========================
+# Virtual environments
+# =========================
+venv/
+env/
+ENV/
+.env/
+.venv/
+
+# Conda environment (important for your case)
+ai_dev_env/
+conda-env/
+
+# =========================
+# Environment variables
+# =========================
+.env
+*.env
+
+# =========================
+# IDE / Editors
+# =========================
+.vscode/
+.idea/
+*.swp
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+logs/
+
+# =========================
+# FastAPI / Uvicorn
+# =========================
+*.sqlite3
+*.db
+
+# =========================
+# Uploaded files (important for resume uploads)
+# =========================
+uploads/
+temp/
+files/
+
+# =========================
+# Dataset / local data (optional depending on repo strategy)
+# =========================
+careerpathai_dataset.csv
+
+# =========================
+# Jupyter Notebook checkpoints (if any)
+# =========================
+.ipynb_checkpoints/

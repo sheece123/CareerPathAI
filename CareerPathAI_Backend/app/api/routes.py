@@ -1,0 +1,66 @@
+from fastapi import APIRouter, UploadFile, File
+
+from app.services.scoring_engine import predict_careers
+from app.services.skill_gap import skill_gap_manual, skill_gap_resume
+from app.services.resume_parser import parse_resume
+
+router = APIRouter()
+
+
+# =========================
+# 1. CAREER PREDICTION
+# =========================
+@router.post("/predict-career")
+def predict_career_route(user_input: dict):
+
+    result = predict_careers(user_input)
+
+    return {
+        "status": "success",
+        "data": result
+    }
+
+
+# =========================
+# 2. SKILL GAP - MANUAL FLOW
+# =========================
+@router.post("/skill-gap/manual")
+def skill_gap_manual_route(user_input: dict):
+
+    result = skill_gap_manual(user_input)
+
+    return {
+        "status": "success",
+        "data": result
+    }
+
+
+# =========================
+# 3. RESUME ANALYSIS + SKILLS
+# =========================
+@router.post("/resume-analysis")
+def resume_analysis_route(file: UploadFile = File(...)):
+
+    result = parse_resume(file)
+
+    return {
+        "status": "success",
+        "data": result
+    }
+
+
+# =========================
+# 4. SKILL GAP - FROM RESUME
+# =========================
+@router.post("/skill-gap/resume")
+def skill_gap_resume_route(user_input: dict):
+
+    resume_skills = user_input.get("resume_skills", [])
+    target_field = user_input.get("target_field", "")
+
+    result = skill_gap_resume(resume_skills, target_field)
+
+    return {
+        "status": "success",
+        "data": result
+    }
