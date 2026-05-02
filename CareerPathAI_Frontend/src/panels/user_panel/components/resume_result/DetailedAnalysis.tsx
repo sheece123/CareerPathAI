@@ -1,8 +1,12 @@
 import { motion } from "framer-motion";
 
+type Props = {
+  skills: string[];
+};
+
 const tabs = ["Skills", "Experience", "Education"];
 
-const DetailedAnalysis = () => {
+const DetailedAnalysis = ({ skills }: Props) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -13,7 +17,7 @@ const DetailedAnalysis = () => {
         Detailed Analysis
       </h3>
 
-      {/* TABS */}
+      {/* TABS (UI ONLY FOR NOW) */}
       <div className="flex gap-6 border-b mb-4">
         {tabs.map((tab, index) => (
           <button
@@ -29,48 +33,34 @@ const DetailedAnalysis = () => {
         ))}
       </div>
 
-      {/* SKILLS */}
+      {/* SKILLS SECTION */}
       <div className="mb-4">
         <h4 className="text-[12px] font-medium mb-2">
-          Technical Skills
+          Extracted Skills
         </h4>
 
         <div className="flex flex-wrap gap-2">
-          {["JavaScript", "React", "Node.js", "SQL", "Python", "AWS", "Figma"].map(
-            (skill) => (
+          {skills && skills.length > 0 ? (
+            skills.map((skill, index) => (
               <span
-                key={skill}
+                key={index}
                 className="text-[11px] px-3 py-1 rounded-full bg-blue-50 text-blue-600"
               >
                 {skill}
               </span>
-            )
+            ))
+          ) : (
+            <span className="text-[12px] text-gray-500">
+              No skills detected
+            </span>
           )}
         </div>
       </div>
 
-      <div>
-        <h4 className="text-[12px] font-medium mb-2">
-          Soft Skills
-        </h4>
-
-        <div className="flex flex-wrap gap-2">
-          {[
-            "Communication",
-            "Teamwork",
-            "Problem-Solving",
-            "Leadership",
-            "Agile Methodologies",
-          ].map((skill) => (
-            <span
-              key={skill}
-              className="text-[11px] px-3 py-1 rounded-full bg-gray-100 text-gray-600"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      </div>
+      {/* NOTE */}
+      <p className="text-[11px] text-gray-400">
+        More detailed analysis (experience, education) will be available in future updates.
+      </p>
     </motion.div>
   );
 };

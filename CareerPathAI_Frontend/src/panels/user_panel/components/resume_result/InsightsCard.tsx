@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
 import { CheckCircle, AlertCircle } from "lucide-react";
 
-const InsightsCard = () => {
+type Props = {
+  strengths: string[];
+  weaknesses: string[];
+};
+
+const InsightsCard = ({ strengths, weaknesses }: Props) => {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -13,6 +18,7 @@ const InsightsCard = () => {
       </h3>
 
       <div className="grid grid-cols-2 gap-6">
+        
         {/* Strengths */}
         <div>
           <div className="flex items-center gap-2 mb-2">
@@ -23,9 +29,13 @@ const InsightsCard = () => {
           </div>
 
           <ul className="text-[12px] text-[#6b7280] space-y-2">
-            <li>Strong action verbs used effectively</li>
-            <li>Clear impact metrics in experience section</li>
-            <li>Well-structured and easy to read format</li>
+            {strengths && strengths.length > 0 ? (
+              strengths.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))
+            ) : (
+              <li>No strengths identified</li>
+            )}
           </ul>
         </div>
 
@@ -39,11 +49,16 @@ const InsightsCard = () => {
           </div>
 
           <ul className="text-[12px] text-[#6b7280] space-y-2">
-            <li>Quantify achievements in older roles</li>
-            <li>Add a professional summary section</li>
-            <li>Tailor skills to job descriptions</li>
+            {weaknesses && weaknesses.length > 0 ? (
+              weaknesses.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))
+            ) : (
+              <li>No improvements needed</li>
+            )}
           </ul>
         </div>
+
       </div>
     </motion.div>
   );

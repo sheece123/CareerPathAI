@@ -3,10 +3,23 @@ import ScoreCard from "../components/resume_result/ScoreCard";
 import InsightsCard from "../components/resume_result/InsightsCard";
 import DetailedAnalysis from "../components/resume_result/DetailedAnalysis";
 import { Download, RefreshCw } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const ResumeResults = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const data = location.state;
+
+  // 🚨 SAFETY CHECK
+  if (!data) {
+    return (
+      <div className="p-6">
+        No data found. Please upload resume again.
+      </div>
+    );
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -37,13 +50,22 @@ const ResumeResults = () => {
 
       {/* MAIN GRID */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
         {/* LEFT */}
-        <ScoreCard />
+        <ScoreCard score={data.resume_score} />
 
         {/* RIGHT */}
         <div className="lg:col-span-2 flex flex-col gap-5">
-          <InsightsCard />
-          <DetailedAnalysis />
+
+          <InsightsCard
+            strengths={data.strengths}
+            weaknesses={data.weaknesses}
+          />
+
+          <DetailedAnalysis
+            skills={data.extracted_skills}
+          />
+
         </div>
       </div>
     </motion.div>

@@ -2,8 +2,22 @@ import { useDropzone } from "react-dropzone";
 import { Upload } from "lucide-react";
 import { motion } from "framer-motion";
 
-const UploadBox = () => {
-  const { getRootProps, getInputProps } = useDropzone();
+type Props = {
+  onFileSelect: (file: File) => void;
+};
+
+const UploadBox = ({ onFileSelect }: Props) => {
+  const { getRootProps, getInputProps } = useDropzone({
+    multiple: false,
+    accept: {
+      "application/pdf": [".pdf"],
+    },
+    onDrop: (acceptedFiles) => {
+      if (acceptedFiles && acceptedFiles.length > 0) {
+        onFileSelect(acceptedFiles[0]);
+      }
+    },
+  });
 
   return (
     <motion.div
@@ -11,7 +25,6 @@ const UploadBox = () => {
       transition={{ duration: 0.2 }}
       className="border border-dashed border-[#d1d5db] rounded-[10px] px-5 py-8 text-center"
     >
-      {/* INNER DIV gets dropzone props */}
       <div {...getRootProps()} className="cursor-pointer">
         <input {...getInputProps()} />
 
@@ -37,7 +50,7 @@ const UploadBox = () => {
         </button>
 
         <p className="text-[10px] text-[#9ca3af] mt-3">
-          Supported formats: PDF, DOCX. Max file size: 5MB
+          Supported formats: PDF. Max file size: 5MB
         </p>
       </div>
     </motion.div>
